@@ -6,7 +6,7 @@ namespace Cinema\Movie\Rules\Rule;
 use Cinema\Movie\API\RequestedSeat;
 use Cinema\Movie\Rules\Rule;
 
-class BagOfRules implements Rule
+class AndRules implements Rule
 {
     /**
      * @var Rule[]
