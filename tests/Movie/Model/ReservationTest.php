@@ -5,19 +5,19 @@ namespace Cinema\Tests\Movie\Model;
 
 use Cinema\Movie\API\RequestedSeat;
 use Cinema\Movie\Model\HallSeats;
-use Cinema\Movie\Model\Screening;
+use Cinema\Movie\Model\Reservation;
 use Cinema\Movie\Model\Seat;
 use Cinema\Movie\Rules\Rule;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Screening
+ * @covers Reservation
  */
-class ScreeningTest extends TestCase
+class ReservationTest extends TestCase
 {
     public function testMakeReservationNoRule(): void
     {
-        $screening = new Screening(
+        $reservation = new Reservation(
             1,
             new HallSeats(
                 new Seat(1, 1, true)
@@ -25,7 +25,7 @@ class ScreeningTest extends TestCase
         );
 
         $this->assertTrue(
-            $screening->makeReservation(
+            $reservation->make(
                 null,
                 new RequestedSeat(1, 1)
             )
@@ -36,7 +36,7 @@ class ScreeningTest extends TestCase
     {
         $ruleMock = $this->createMock(Rule::class);
 
-        $screening = new Screening(
+        $reservation = new Reservation(
             1,
             new HallSeats(
                 new Seat(1, 1, true)
@@ -49,7 +49,7 @@ class ScreeningTest extends TestCase
             ->willReturn(true);
 
         $this->assertTrue(
-            $screening->makeReservation(
+            $reservation->make(
                 $ruleMock,
                 new RequestedSeat(1, 1)
             )
@@ -60,7 +60,7 @@ class ScreeningTest extends TestCase
     {
         $ruleMock = $this->createMock(Rule::class);
 
-        $screening = new Screening(
+        $reservation = new Reservation(
             1,
             new HallSeats(
                 new Seat(1, 1, true)
@@ -73,7 +73,7 @@ class ScreeningTest extends TestCase
             ->willReturn(false);
 
         $this->assertFalse(
-            $screening->makeReservation(
+            $reservation->make(
                 $ruleMock,
                 new RequestedSeat(1, 1)
             )
@@ -82,7 +82,7 @@ class ScreeningTest extends TestCase
 
     public function testMakeReservationButSeatIsTaken(): void
     {
-        $screening = new Screening(
+        $reservation = new Reservation(
             1,
             new HallSeats(
                 new Seat(1, 1, false)
@@ -90,7 +90,7 @@ class ScreeningTest extends TestCase
         );
 
         $this->assertFalse(
-            $screening->makeReservation(
+            $reservation->make(
                 null,
                 new RequestedSeat(1, 1)
             )

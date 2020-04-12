@@ -6,12 +6,17 @@ namespace Cinema\Movie\Model;
 use Cinema\Movie\API;
 use Cinema\Movie\Rules\Rule;
 
-class Screening
+class Reservation
 {
+    /**
+     * @var int|null
+     */
+    private $id;
+
     /**
      * @var int
      */
-    private $id;
+    private $idScreening;
 
     /**
      * @var HallSeats
@@ -19,12 +24,12 @@ class Screening
     private $hallSeats;
 
     /**
-     * @param int $id
+     * @param int $idScreening
      * @param HallSeats $hallSeats
      */
-    public function __construct(int $id, HallSeats $hallSeats)
+    public function __construct(int $idScreening, HallSeats $hallSeats)
     {
-        $this->id = $id;
+        $this->idScreening = $idScreening;
         $this->hallSeats = $hallSeats;
     }
 
@@ -34,7 +39,7 @@ class Screening
      *
      * @return bool
      */
-    public function makeReservation(
+    public function make(
         ?Rule $rule,
         API\RequestedSeat ...$requestedSeats
     ): bool {

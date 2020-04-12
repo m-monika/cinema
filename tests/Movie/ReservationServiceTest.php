@@ -28,7 +28,7 @@ class ReservationServiceTest extends TestCase
 
     public function testMakeReservationSuccess(): void
     {
-        $screeningModel = $this->createMock(Model\Screening::class);
+        $screeningModel = $this->createMock(Model\Reservation::class);
         $this->screeningDatabase
             ->expects($this->once())
             ->method('getById')
@@ -39,7 +39,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(null);
         $screeningModel
             ->expects($this->once())
-            ->method('makeReservation')
+            ->method('make')
             ->willReturn(true);
         $this->screeningDatabase
             ->expects($this->once())
@@ -53,7 +53,7 @@ class ReservationServiceTest extends TestCase
 
     public function testCouldNotSaveToDatabase(): void
     {
-        $screeningModel = $this->createMock(Model\Screening::class);
+        $screeningModel = $this->createMock(Model\Reservation::class);
         $this->screeningDatabase
             ->expects($this->once())
             ->method('getById')
@@ -64,7 +64,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(null);
         $screeningModel
             ->expects($this->once())
-            ->method('makeReservation')
+            ->method('make')
             ->willReturn(true);
         $this->screeningDatabase
             ->expects($this->once())
@@ -78,7 +78,7 @@ class ReservationServiceTest extends TestCase
 
     public function testCouldNotMakeReservation(): void
     {
-        $screeningModel = $this->createMock(Model\Screening::class);
+        $screeningModel = $this->createMock(Model\Reservation::class);
         $this->screeningDatabase
             ->expects($this->once())
             ->method('getById')
@@ -89,7 +89,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(null);
         $screeningModel
             ->expects($this->once())
-            ->method('makeReservation')
+            ->method('make')
             ->willReturn(false);
         $this->screeningDatabase
             ->expects($this->never())

@@ -13,18 +13,18 @@ class ReservationService
     /**
      * @var Database\Screening
      */
-    private $screeningDatabase;
+    private $reservationDatabase;
 
     /**
-     * @param Database\Screening $screeningDatabase
+     * @param Database\Screening $reservationDatabase
      * @param Rules\Database $rulesDatabase
      */
     public function __construct(
-        Database\Screening $screeningDatabase,
+        Database\Screening $reservationDatabase,
         Rules\Database $rulesDatabase
     ) {
         $this->rulesDatabase = $rulesDatabase;
-        $this->screeningDatabase = $screeningDatabase;
+        $this->reservationDatabase = $reservationDatabase;
     }
 
     /**
@@ -41,16 +41,16 @@ class ReservationService
             );
         }
 
-        $screening = $this->screeningDatabase->getById($idScreening);
+        $reservation = $this->reservationDatabase->getById($idScreening);
 
-        if ($screening === null) {
+        if ($reservation === null) {
             return new Result\Failure(
                 "Screening you are looking for does not exits."
             );
         }
 
         $rule = $this->rulesDatabase->getForMovie($idScreening);
-        $result = $screening->makeReservation($rule, ...$seats);
+        $result = $reservation->make($rule, ...$seats);
 
         if ($result === false) {
             return new Result\Failure(
@@ -58,7 +58,7 @@ class ReservationService
             );
         }
 
-        if ($this->screeningDatabase->save($screening)) {
+        if ($this->reservationDatabase->save($reservation)) {
             return new Result\Success();
         }
 

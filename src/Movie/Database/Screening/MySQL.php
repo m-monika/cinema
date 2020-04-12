@@ -8,12 +8,12 @@ use Cinema\Movie\Model;
 
 class MySQL implements Screening
 {
-    public function getById(int $idScreening): ?Model\Screening
+    public function getById(int $idScreening): ?Model\Reservation
     {
         return null;
     }
 
-    public function save(Model\Screening $screening): bool
+    public function save(Model\Reservation $reservation): bool
     {
         return true;
     }

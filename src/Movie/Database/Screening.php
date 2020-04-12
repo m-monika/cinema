@@ -10,14 +10,14 @@ interface Screening
     /**
      * @param int $idScreening
      *
-     * @return Model\Screening|null
+     * @return Model\Reservation|null
      */
-    public function getById(int $idScreening): ?Model\Screening;
+    public function getById(int $idScreening): ?Model\Reservation;
 
     /**
-     * @param Model\Screening $screening
+     * @param Model\Reservation $reservation
      *
      * @return bool
      */
-    public function save(Model\Screening $screening): bool;
+    public function save(Model\Reservation $reservation): bool;
 }
