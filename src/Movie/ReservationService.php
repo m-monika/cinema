@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Cinema\Movie;
 
-class Reservation
+class ReservationService
 {
     /**
      * @var Rules\Database

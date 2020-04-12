@@ -5,22 +5,22 @@ namespace Cinema\Tests\Movie\Rules\Rule;
 
 use Cinema\Movie\API\RequestedSeat;
 use Cinema\Movie\Model;
-use Cinema\Movie\Reservation;
+use Cinema\Movie\ReservationService;
 use Cinema\Movie\Result;
 use Cinema\Movie\Rules;
 use Cinema\Movie\Database\Screening;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Reservation
+ * @covers ReservationService
  */
-class ReservationTest extends TestCase
+class ReservationServiceTest extends TestCase
 {
     public function setUp(): void
     {
         $this->rulesDatabase = $this->createMock(Rules\Database::class);
         $this->screeningDatabase = $this->createMock(Screening::class);
-        $this->reservation = new Reservation(
+        $this->reservation = new ReservationService(
             $this->screeningDatabase,
             $this->rulesDatabase
         );
