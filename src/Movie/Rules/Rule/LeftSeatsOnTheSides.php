@@ -27,23 +27,19 @@ class LeftSeatsOnTheSides implements Rule
     /**
      * @param int $seatOnSideToLeave
      * @param Model\HallSeats $hallSeats
-     * @param RequestedSeat ...$requestedSeats
      */
     public function __construct(
         int $seatOnSideToLeave,
-        Model\HallSeats $hallSeats,
-        RequestedSeat ...$requestedSeats
+        Model\HallSeats $hallSeats
     ) {
         $this->seatOnSideToLeave = $seatOnSideToLeave;
         $this->hallSeats = $hallSeats;
-        foreach ($requestedSeats as $requestedSeat) {
-            $this->requestedSeats[$requestedSeat->getRow()][]
-                = $requestedSeat->getSeatInRow();
-        }
     }
 
-    public function canMakeReservation(): bool
+    public function canMakeReservation(RequestedSeat ...$requestedSeats): bool
     {
+        $this->mapRequestedSeats($requestedSeats);
+
         foreach ($this->requestedSeats as $row => $seatsInRow) {
             $previousSeatInRow = null;
             foreach ($seatsInRow as $seatInRow) {
@@ -56,6 +52,14 @@ class LeftSeatsOnTheSides implements Rule
         }
 
         return true;
+    }
+
+    private function mapRequestedSeats(array $requestedSeats): void
+    {
+        foreach ($requestedSeats as $requestedSeat) {
+            $this->requestedSeats[$requestedSeat->getRow()][]
+                = $requestedSeat->getSeatInRow();
+        }
     }
 
     private function canTakeThisSeat(

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Cinema\Movie\Rules\Rule;
 
+use Cinema\Movie\API\RequestedSeat;
 use Cinema\Movie\Rules\Rule;
 
 class BagOfRules implements Rule
@@ -20,10 +21,10 @@ class BagOfRules implements Rule
         $this->rules = $rules;
     }
 
-    public function canMakeReservation(): bool
+    public function canMakeReservation(RequestedSeat ...$requestedSeats): bool
     {
         foreach ($this->rules as $rule) {
-            if (!$rule->canMakeReservation()) {
+            if (!$rule->canMakeReservation(...$requestedSeats)) {
                 return false;
             }
         }

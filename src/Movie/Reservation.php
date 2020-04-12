@@ -49,7 +49,7 @@ class Reservation
             );
         }
 
-        $rule = $this->rulesDatabase->getForMovie($idScreening, ...$seats);
+        $rule = $this->rulesDatabase->getForMovie($idScreening);
         $result = $screening->makeReservation($rule, ...$seats);
 
         if ($result === false) {

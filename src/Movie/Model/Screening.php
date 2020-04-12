@@ -50,7 +50,7 @@ class Screening
         }
 
         if ($rule instanceof Rule) {
-            return $rule->canMakeReservation();
+            return $rule->canMakeReservation(...$requestedSeats);
         }
 
         return true;

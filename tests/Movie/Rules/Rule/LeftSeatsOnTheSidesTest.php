@@ -143,12 +143,11 @@ class LeftSeatsOnTheSidesTest extends TestCase
     ): void {
         $leftSeatsOnTheSides = new LeftSeatsOnTheSides(
             $seatOnSideToLeave,
-            $hallSeats,
-            ...$requestedSeats
+            $hallSeats
         );
         $this->assertSame(
             $result,
-            $leftSeatsOnTheSides->canMakeReservation()
+            $leftSeatsOnTheSides->canMakeReservation(...$requestedSeats)
         );
     }
 }
