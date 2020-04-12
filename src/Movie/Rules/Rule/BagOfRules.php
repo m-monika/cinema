@@ -20,15 +20,10 @@ class BagOfRules implements Rule
         $this->rules = $rules;
     }
 
-    public function canUse(): bool
-    {
-        return true;
-    }
-
     public function canMakeReservation(): bool
     {
         foreach ($this->rules as $rule) {
-            if ($rule->canUse() && !$rule->canMakeReservation()) {
+            if (!$rule->canMakeReservation()) {
                 return false;
             }
         }

@@ -49,7 +49,7 @@ class Screening
             $this->hallSeats->reserveSeat($row, $seatInRow);
         }
 
-        if ($rule instanceof Rule && $rule->canUse()) {
+        if ($rule instanceof Rule) {
             return $rule->canMakeReservation();
         }
 

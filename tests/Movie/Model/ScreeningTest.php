@@ -45,11 +45,6 @@ class ScreeningTest extends TestCase
 
         $ruleMock
             ->expects($this->once())
-            ->method('canUse')
-            ->willReturn(true);
-
-        $ruleMock
-            ->expects($this->once())
             ->method('canMakeReservation')
             ->willReturn(true);
 
@@ -71,11 +66,6 @@ class ScreeningTest extends TestCase
                 new Seat(1, 1, true)
             )
         );
-
-        $ruleMock
-            ->expects($this->once())
-            ->method('canUse')
-            ->willReturn(true);
 
         $ruleMock
             ->expects($this->once())

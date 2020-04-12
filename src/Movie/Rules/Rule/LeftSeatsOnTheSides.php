@@ -42,11 +42,6 @@ class LeftSeatsOnTheSides implements Rule
         }
     }
 
-    public function canUse(): bool
-    {
-        return true;
-    }
-
     public function canMakeReservation(): bool
     {
         foreach ($this->requestedSeats as $row => $seatsInRow) {

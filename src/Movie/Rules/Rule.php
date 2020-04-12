@@ -5,7 +5,8 @@ namespace Cinema\Movie\Rules;
 
 interface Rule
 {
-    public function canUse(): bool;
-
+    /**
+     * @return bool
+     */
     public function canMakeReservation(): bool;
 }
