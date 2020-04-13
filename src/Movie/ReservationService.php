@@ -41,7 +41,10 @@ class ReservationService
             );
         }
 
-        $reservation = $this->reservationDatabase->getById($idScreening);
+        $reservation = $this->reservationDatabase->getById(
+            $idScreening,
+            ...$seats
+        );
 
         if ($reservation === null) {
             return new Result\Failure(
