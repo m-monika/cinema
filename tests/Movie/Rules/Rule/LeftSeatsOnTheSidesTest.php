@@ -47,7 +47,7 @@ class LeftSeatsOnTheSidesTest extends TestCase
                 [new RequestedSeat(1, 2)],
                 true
             ],
-            'reservation-for-second-seat-in-row-when-one-seats-must-be-left-and-its-taken' => [
+            'reservation-for-second-seat-in-row-when-first-seat-is-taken' => [
                 new HallSeats(
                     new Seat(1, 1, false),
                     new Seat(1, 2, true),
@@ -55,7 +55,7 @@ class LeftSeatsOnTheSidesTest extends TestCase
                 ),
                 1,
                 [new RequestedSeat(1, 2)],
-                false
+                true
             ],
             'reservation-for-third-seat-in-row-when-two-seats-must-be-left' => [
                 new HallSeats(
@@ -77,7 +77,7 @@ class LeftSeatsOnTheSidesTest extends TestCase
                 [new RequestedSeat(1, 3)],
                 false
             ],
-            'reservation-for-third-seat-in-row-when-two-seats-must-be-left-second-seat-is-taken' => [
+            'reservation-for-third-seat-in-row-when-second-seat-is-taken' => [
                 new HallSeats(
                     new Seat(1, 1, true),
                     new Seat(1, 2, false),
@@ -85,7 +85,7 @@ class LeftSeatsOnTheSidesTest extends TestCase
                 ),
                 2,
                 [new RequestedSeat(1, 3)],
-                false
+                true
             ],
             'reservation-for-few-rows' => [
                 new HallSeats(

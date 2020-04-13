@@ -31,7 +31,7 @@ class HallSeats
     public function isSeatAvailable(int $row, int $seatInRow): bool
     {
         if (!$this->seatExists($row, $seatInRow)) {
-            throw new \InvalidArgumentException("Hall does not have this seat");
+            return false;
         }
 
         return ($this->seats[$row][$seatInRow])->isAvailable();
@@ -41,20 +41,6 @@ class HallSeats
     {
         return $this->rowExists($row)
             && \array_key_exists($seatInRow, $this->seats[$row]);
-    }
-
-    /**
-     * @param int $row
-     *
-     * @return int
-     */
-    public function maxSeatsInRow(int $row): int
-    {
-        if (!$this->rowExists($row)) {
-            throw new \InvalidArgumentException("Hall does not have this row");
-        }
-
-        return \count($this->seats[$row]);
     }
 
     private function rowExists(int $row): bool

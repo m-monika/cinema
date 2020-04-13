@@ -27,20 +27,6 @@ class HallSeatsTest extends TestCase
     public function testSeatDoesntExists(): void
     {
         $hallSeat = new HallSeats(new Seat(1, 1, false));
-        $this->expectException(\InvalidArgumentException::class);
-        $hallSeat->isSeatAvailable(1, 2);
-    }
-
-    public function testMaxSeatsInRow(): void
-    {
-        $hallSeat = new HallSeats(new Seat(1, 1, false));
-        $this->assertSame(1, $hallSeat->maxSeatsInRow(1));
-    }
-
-    public function testRowDoesntExists(): void
-    {
-        $hallSeat = new HallSeats(new Seat(1, 1, false));
-        $this->expectException(\InvalidArgumentException::class);
-        $hallSeat->maxSeatsInRow(2);
+        $this->assertFalse($hallSeat->isSeatAvailable(1, 2));
     }
 }
