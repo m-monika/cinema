@@ -44,10 +44,11 @@ class Reservation
         API\RequestedSeat ...$requestedSeats
     ): bool {
         foreach ($requestedSeats as $requestedSeat) {
+            $sector = $requestedSeat->getSector();
             $row = $requestedSeat->getRow();
             $seatInRow = $requestedSeat->getSeatInRow();
 
-            if (!$this->hallSeats->reserveSeat($row, $seatInRow)) {
+            if (!$this->hallSeats->reserveSeat($sector, $row, $seatInRow)) {
                 return false;
             }
         }

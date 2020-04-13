@@ -8,6 +8,11 @@ class RequestedSeat
     /**
      * @var int
      */
+    private $sector;
+
+    /**
+     * @var int
+     */
     private $row;
 
     /**
@@ -16,13 +21,23 @@ class RequestedSeat
     private $seatInRow;
 
     /**
+     * @param int $sector
      * @param int $row
      * @param int $seatInRow
      */
-    public function __construct(int $row, int $seatInRow)
+    public function __construct(int $sector, int $row, int $seatInRow)
     {
+        $this->sector = $sector;
         $this->row = $row;
         $this->seatInRow = $seatInRow;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSector(): int
+    {
+        return $this->sector;
     }
 
     /**

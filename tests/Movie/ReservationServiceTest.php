@@ -48,7 +48,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(true);
         $this->assertInstanceOf(
             Result\Success::class,
-            $this->reservation->make(1, new RequestedSeat(1, 1))
+            $this->reservation->make(1, new RequestedSeat(1, 1, 1))
         );
     }
 
@@ -74,7 +74,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(false);
         $this->assertInstanceOf(
             Result\Failure::class,
-            $this->reservation->make(1, new RequestedSeat(1, 1))
+            $this->reservation->make(1, new RequestedSeat(1, 1, 1))
         );
     }
 
@@ -99,7 +99,7 @@ class ReservationServiceTest extends TestCase
             ->method('save');
         $this->assertInstanceOf(
             Result\Failure::class,
-            $this->reservation->make(1, new RequestedSeat(1, 1))
+            $this->reservation->make(1, new RequestedSeat(1, 1, 1))
         );
     }
 
@@ -114,7 +114,7 @@ class ReservationServiceTest extends TestCase
             ->method('save');
         $this->assertInstanceOf(
             Result\Failure::class,
-            $this->reservation->make(1, new RequestedSeat(1, 1))
+            $this->reservation->make(1, new RequestedSeat(1, 1, 1))
         );
     }
 

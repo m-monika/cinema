@@ -22,7 +22,7 @@ class ReservationTest extends TestCase
         $reservation = new Reservation(
             1,
             new HallSeats(
-                new Seat(1, 1, true)
+                new Seat(1, 1, 1, true)
             )
         );
 
@@ -34,7 +34,7 @@ class ReservationTest extends TestCase
         $this->assertTrue(
             $reservation->make(
                 $ruleMock,
-                new RequestedSeat(1, 1)
+                new RequestedSeat(1, 1, 1)
             )
         );
     }
@@ -46,7 +46,7 @@ class ReservationTest extends TestCase
         $reservation = new Reservation(
             1,
             new HallSeats(
-                new Seat(1, 1, true)
+                new Seat(1, 1, 1, true)
             )
         );
 
@@ -58,7 +58,7 @@ class ReservationTest extends TestCase
         $this->assertFalse(
             $reservation->make(
                 $ruleMock,
-                new RequestedSeat(1, 1)
+                new RequestedSeat(1, 1, 1)
             )
         );
     }
@@ -69,14 +69,14 @@ class ReservationTest extends TestCase
         $reservation = new Reservation(
             1,
             new HallSeats(
-                new Seat(1, 1, false)
+                new Seat(1, 1, 1, false)
             )
         );
 
         $this->assertFalse(
             $reservation->make(
                 $ruleMock,
-                new RequestedSeat(1, 1)
+                new RequestedSeat(1, 1, 1)
             )
         );
     }

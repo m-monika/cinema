@@ -16,46 +16,46 @@ class SpaceBetweenRequestedSeatsTest extends TestCase
     {
         return [
             'only-one-seat-requested' => [
-                [new RequestedSeat(1, 1)],
+                [new RequestedSeat(1, 1, 1)],
                 1,
                 true
             ],
             'two-seats-requested-alongside' => [
-                [new RequestedSeat(1, 1), new RequestedSeat(1, 2)],
+                [new RequestedSeat(1, 1, 1), new RequestedSeat(1, 1, 2)],
                 1,
                 true
             ],
             'two-seats-requested-with-only-one-space-seat' => [
-                [new RequestedSeat(1, 1), new RequestedSeat(1, 3)],
+                [new RequestedSeat(1, 1, 1), new RequestedSeat(1, 1, 3)],
                 1,
                 true
             ],
             'two-seats-requested-with-only-one-space-seat-but-two-required' => [
-                [new RequestedSeat(1, 1), new RequestedSeat(1, 3)],
+                [new RequestedSeat(1, 1, 1), new RequestedSeat(1, 1, 3)],
                 2,
                 false
             ],
             'two-seats-requested-in-different-row' => [
-                [new RequestedSeat(1, 1), new RequestedSeat(2, 3)],
+                [new RequestedSeat(1, 1, 1), new RequestedSeat(1, 2, 3)],
                 2,
                 true
             ],
             'four-seats-requested-in-different-row' => [
                 [
-                    new RequestedSeat(1, 1),
-                    new RequestedSeat(1, 2),
-                    new RequestedSeat(2, 1),
-                    new RequestedSeat(2, 2)
+                    new RequestedSeat(1, 1, 1),
+                    new RequestedSeat(1, 1, 2),
+                    new RequestedSeat(1, 2, 1),
+                    new RequestedSeat(1, 2, 2)
                 ],
                 2,
                 true
             ],
             'four-seats-requested-in-different-row-but-no-space-in-second-row' => [
                 [
-                    new RequestedSeat(1, 1),
-                    new RequestedSeat(1, 2),
-                    new RequestedSeat(2, 1),
-                    new RequestedSeat(2, 3)
+                    new RequestedSeat(1, 1, 1),
+                    new RequestedSeat(1, 1, 2),
+                    new RequestedSeat(1, 2, 1),
+                    new RequestedSeat(1, 2, 3)
                 ],
                 2,
                 false

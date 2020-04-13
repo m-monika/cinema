@@ -19,91 +19,91 @@ class LeftSeatsOnTheSidesTest extends TestCase
         return [
             'reservation-for-first-seat-in-row' => [
                 new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, true),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true)
                 ),
                 2,
-                [new RequestedSeat(1, 1)],
+                [new RequestedSeat(1, 1, 1)],
                 true
             ],
             'reservation-for-second-seat-in-row-when-two-seats-must-be-left' => [
                 new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, true),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true)
                 ),
                 2,
-                [new RequestedSeat(1, 2)],
+                [new RequestedSeat(1, 1, 2)],
                 false
             ],
             'reservation-for-second-seat-in-row-when-one-seats-must-be-left' => [
                 new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, true),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true)
                 ),
                 1,
-                [new RequestedSeat(1, 2)],
+                [new RequestedSeat(1, 1, 2)],
                 true
             ],
             'reservation-for-second-seat-in-row-when-first-seat-is-taken' => [
                 new HallSeats(
-                    new Seat(1, 1, false),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, false),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true)
                 ),
                 1,
-                [new RequestedSeat(1, 2)],
+                [new RequestedSeat(1, 1, 2)],
                 true
             ],
             'reservation-for-third-seat-in-row-when-two-seats-must-be-left' => [
                 new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, true),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true)
                 ),
                 2,
-                [new RequestedSeat(1, 3)],
+                [new RequestedSeat(1, 1, 3)],
                 true
             ],
             'reservation-for-third-seat-in-row-when-two-seats-must-be-left-first-seat-is-taken' => [
                 new HallSeats(
-                    new Seat(1, 1, false),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, false),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true)
                 ),
                 2,
-                [new RequestedSeat(1, 3)],
+                [new RequestedSeat(1, 1, 3)],
                 false
             ],
             'reservation-for-third-seat-in-row-when-second-seat-is-taken' => [
                 new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, false),
-                    new Seat(1, 3, true)
+                    new Seat(1, 1, 1, true),
+                    new Seat(1, 1, 2, false),
+                    new Seat(1, 1, 3, true)
                 ),
                 2,
-                [new RequestedSeat(1, 3)],
+                [new RequestedSeat(1, 1, 3)],
                 true
             ],
             'reservation-for-few-rows' => [
                 new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true),
-                    new Seat(1, 4, true),
-                    new Seat(2, 1, true),
-                    new Seat(2, 2, true),
-                    new Seat(2, 3, true),
-                    new Seat(2, 4, true),
+                    new Seat(1, 1, 1, true),
+                    new Seat(1, 1, 2, true),
+                    new Seat(1, 1, 3, true),
+                    new Seat(1, 1, 4, true),
+                    new Seat(1, 2, 1, true),
+                    new Seat(1, 2, 2, true),
+                    new Seat(1, 2, 3, true),
+                    new Seat(1, 2, 4, true),
                 ),
                 2,
                 [
-                    new RequestedSeat(1, 1),
-                    new RequestedSeat(1, 2),
-                    new RequestedSeat(2, 1),
-                    new RequestedSeat(2, 2),
+                    new RequestedSeat(1, 1, 1),
+                    new RequestedSeat(1, 1, 2),
+                    new RequestedSeat(1, 2, 1),
+                    new RequestedSeat(1, 2, 2),
                 ],
                 false
             ]

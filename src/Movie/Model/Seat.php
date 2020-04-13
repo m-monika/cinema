@@ -21,15 +21,34 @@ class Seat
     private $isAvailable;
 
     /**
+     * @var int
+     */
+    private $sector;
+
+    /**
+     * @param int $sector
      * @param int $row
      * @param int $seatInRow
      * @param bool $isAvailable
      */
-    public function __construct(int $row, int $seatInRow, bool $isAvailable)
-    {
+    public function __construct(
+        int $sector,
+        int $row,
+        int $seatInRow,
+        bool $isAvailable
+    ) {
+        $this->sector = $sector;
         $this->row = $row;
         $this->seatInRow = $seatInRow;
         $this->isAvailable = $isAvailable;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSector(): int
+    {
+        return $this->sector;
     }
 
     /**

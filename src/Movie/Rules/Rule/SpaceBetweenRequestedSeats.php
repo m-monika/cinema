@@ -23,17 +23,19 @@ class SpaceBetweenRequestedSeats implements Rule
 
     public function canMakeReservation(RequestedSeat ...$requestedSeats): bool
     {
-        $groupedSeats = $this->groupSeatsByRow($requestedSeats);
+        $groupedSeats = $this->groupSeatsBySector($requestedSeats);
 
         return $this->checkGroupedSeats($groupedSeats);
     }
 
-    private function groupSeatsByRow(array $requestedSeats): array
+    private function groupSeatsBySector(array $requestedSeats): array
     {
         $groupedSeats = [];
 
         foreach ($requestedSeats as $requestedSeat) {
-            $groupedSeats[$requestedSeat->getRow()][] = $requestedSeat->getSeatInRow();
+            $sector = $requestedSeat->getSector();
+            $row = $requestedSeat->getRow();
+            $groupedSeats[$sector][$row][] = $requestedSeat->getSeatInRow();
         }
 
         return $groupedSeats;
@@ -41,9 +43,11 @@ class SpaceBetweenRequestedSeats implements Rule
 
     private function checkGroupedSeats(array $groupedSeats): bool
     {
-        foreach ($groupedSeats as $row => $seatsInRow) {
-            if (!$this->checkSeatsInRow($seatsInRow)) {
-                return false;
+        foreach ($groupedSeats as $rows) {
+            foreach ($rows as $seatsInRow) {
+                if (!$this->checkSeatsInRow($seatsInRow)) {
+                    return false;
+                }
             }
         }
 

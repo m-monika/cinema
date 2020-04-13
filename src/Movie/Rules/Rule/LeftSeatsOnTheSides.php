@@ -35,8 +35,8 @@ class LeftSeatsOnTheSides implements Rule
     {
         $requestedSeats = $this->groupSeatsByRow($requestedSeats);
 
-        foreach ($requestedSeats as $row => $seatsInRow) {
-            if (!$this->checkSeatsInRow($row, $seatsInRow)) {
+        foreach ($requestedSeats as $sector => $rows) {
+            if (!$this->checkRowsInSector($sector, $rows)) {
                 return false;
             }
         }
@@ -49,16 +49,29 @@ class LeftSeatsOnTheSides implements Rule
         $result = [];
 
         foreach ($requestedSeats as $requestedSeat) {
-            $result[$requestedSeat->getRow()][] = $requestedSeat->getSeatInRow();
+            $sector = $requestedSeat->getSector();
+            $row = $requestedSeat->getRow();
+            $result[$sector][$row][] = $requestedSeat->getSeatInRow();
         }
 
         return $result;
     }
 
-    private function checkSeatsInRow(int $row, array $seatsInRow): bool
+    private function checkRowsInSector(int $sector, array $rows): bool
+    {
+        foreach ($rows as $row => $seatsInRow) {
+            if (!$this->checkSeatsInRow($sector, $row, $seatsInRow)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function checkSeatsInRow(int $sector, int $row, array $seatsInRow): bool
     {
         foreach ($seatsInRow as $seatInRow) {
-            if (!$this->canTakeThisSeat($row, $seatInRow)) {
+            if (!$this->canTakeThisSeat($sector, $row, $seatInRow)) {
                 return false;
             }
         }
@@ -67,25 +80,27 @@ class LeftSeatsOnTheSides implements Rule
     }
 
     private function canTakeThisSeat(
+        int $sector,
         int $row,
         int $seatInRow
     ): bool {
-        return $this->checkLeftSideOnSeat($row, $seatInRow)
-            && $this->checkRightSideOnSeat($row, $seatInRow);
+        return $this->checkLeftSideOnSeat($sector, $row, $seatInRow)
+            && $this->checkRightSideOnSeat($sector, $row, $seatInRow);
     }
 
     private function checkLeftSideOnSeat(
+        int $sector,
         int $row,
         int $seatInRow
     ): bool {
-        if (!$this->hallSeats->isSeatAvailable($row, $seatInRow - 1)) {
+        if (!$this->hallSeats->isSeatAvailable($sector, $row, $seatInRow - 1)) {
             return true;
         }
 
         for ($seatCount = 2; $seatCount <= $this->seatOnSideToLeave; $seatCount++) {
             $seatToCheckOnLeft = $seatInRow - $seatCount;
 
-            if (!$this->hallSeats->isSeatAvailable($row, $seatToCheckOnLeft)) {
+            if (!$this->hallSeats->isSeatAvailable($sector, $row, $seatToCheckOnLeft)) {
                 return false;
             }
         }
@@ -94,17 +109,18 @@ class LeftSeatsOnTheSides implements Rule
     }
 
     private function checkRightSideOnSeat(
+        int $sector,
         int $row,
         int $seatInRow
     ): bool {
-        if (!$this->hallSeats->isSeatAvailable($row, $seatInRow + 1)) {
+        if (!$this->hallSeats->isSeatAvailable($sector, $row, $seatInRow + 1)) {
             return true;
         }
 
         for ($seatCount = 2; $seatCount <= $this->seatOnSideToLeave; $seatCount++) {
             $seatToCheckOnLeft = $seatInRow + $seatCount;
 
-            if (!$this->hallSeats->isSeatAvailable($row, $seatToCheckOnLeft)) {
+            if (!$this->hallSeats->isSeatAvailable($sector, $row, $seatToCheckOnLeft)) {
                 return false;
             }
         }
