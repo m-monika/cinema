@@ -15,11 +15,6 @@ class LeftSeatsOnTheSides implements Rule
     private $hallSeats;
 
     /**
-     * @var int[][]
-     */
-    private $requestedSeats = [];
-
-    /**
      * @var int
      */
     private $seatOnSideToLeave;
@@ -38,9 +33,9 @@ class LeftSeatsOnTheSides implements Rule
 
     public function canMakeReservation(RequestedSeat ...$requestedSeats): bool
     {
-        $this->mapRequestedSeats($requestedSeats);
+        $requestedSeats = $this->groupSeatsByRow($requestedSeats);
 
-        foreach ($this->requestedSeats as $row => $seatsInRow) {
+        foreach ($requestedSeats as $row => $seatsInRow) {
             foreach ($seatsInRow as $seatInRow) {
                 if (!$this->canTakeThisSeat($row, $seatInRow)) {
                     return false;
@@ -51,12 +46,16 @@ class LeftSeatsOnTheSides implements Rule
         return true;
     }
 
-    private function mapRequestedSeats(array $requestedSeats): void
+    private function groupSeatsByRow(array $requestedSeats): array
     {
+        $result = [];
+
         foreach ($requestedSeats as $requestedSeat) {
-            $this->requestedSeats[$requestedSeat->getRow()][]
+            $result[$requestedSeat->getRow()][]
                 = $requestedSeat->getSeatInRow();
         }
+
+        return $result;
     }
 
     private function canTakeThisSeat(
