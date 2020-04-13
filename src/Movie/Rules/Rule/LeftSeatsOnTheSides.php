@@ -41,13 +41,10 @@ class LeftSeatsOnTheSides implements Rule
         $this->mapRequestedSeats($requestedSeats);
 
         foreach ($this->requestedSeats as $row => $seatsInRow) {
-            $previousSeatInRow = null;
             foreach ($seatsInRow as $seatInRow) {
-                if (!$this->canTakeThisSeat($row, $seatInRow, $previousSeatInRow)) {
+                if (!$this->canTakeThisSeat($row, $seatInRow)) {
                     return false;
                 }
-
-                $previousSeatInRow = $seatInRow;
             }
         }
 
@@ -64,22 +61,10 @@ class LeftSeatsOnTheSides implements Rule
 
     private function canTakeThisSeat(
         int $row,
-        int $seatInRow,
-        ?int $previousSeatInRow
+        int $seatInRow
     ): bool {
-        return $this->checkIsSpaceBetweenSeats($seatInRow, $previousSeatInRow)
-            && $this->checkLeftSideOnSeat($row, $seatInRow)
+        return $this->checkLeftSideOnSeat($row, $seatInRow)
             && $this->checkRightSideOnSeat($row, $seatInRow);
-    }
-
-    private function checkIsSpaceBetweenSeats(
-        int $seatInRow,
-        ?int $previousSeatInRow
-    ): bool {
-        return ($previousSeatInRow === null
-            || ($seatInRow - $previousSeatInRow === 1)
-            || ($seatInRow - $previousSeatInRow > $this->seatOnSideToLeave)
-        );
     }
 
     private function checkLeftSideOnSeat(

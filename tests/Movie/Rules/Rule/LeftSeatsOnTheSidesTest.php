@@ -87,28 +87,6 @@ class LeftSeatsOnTheSidesTest extends TestCase
                 [new RequestedSeat(1, 3)],
                 false
             ],
-            'reservation-for-two-seats-space-between' => [
-                new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true),
-                    new Seat(1, 4, true)
-                ),
-                2,
-                [new RequestedSeat(1, 1), new RequestedSeat(1, 4)],
-                true
-            ],
-            'reservation-for-two-seats-no-space-between' => [
-                new HallSeats(
-                    new Seat(1, 1, true),
-                    new Seat(1, 2, true),
-                    new Seat(1, 3, true),
-                    new Seat(1, 4, true)
-                ),
-                2,
-                [new RequestedSeat(1, 1), new RequestedSeat(1, 3)],
-                false
-            ],
             'reservation-for-few-rows' => [
                 new HallSeats(
                     new Seat(1, 1, true),
