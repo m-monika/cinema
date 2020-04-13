@@ -35,7 +35,7 @@ class ReservationService
      */
     public function make(int $idScreening, API\RequestedSeat ...$seats): Result
     {
-        if (count($seats) === 0) {
+        if (!$this->validateRequestedSeats($seats)) {
             return new Result\Failure(
                 "You need to choose seats to make a reservation."
             );
@@ -49,19 +49,36 @@ class ReservationService
             );
         }
 
-        $rule = $this->rulesComposite->getForScreening($idScreening);
-        $result = $reservation->make($rule, ...$seats);
-
-        if ($result === false) {
+        if (!$this->tryMakeReservation($idScreening, $reservation, $seats)) {
             return new Result\Failure(
                 "You can not reserve those seats."
             );
         }
 
-        if ($this->reservationDatabase->save($reservation)) {
+        if ($this->saveReservation($reservation)) {
             return new Result\Success();
         }
 
         return new Result\Failure("Something went wrong, try again later.");
+    }
+
+    private function validateRequestedSeats(array $seats): bool
+    {
+        return count($seats) > 0;
+    }
+
+    private function tryMakeReservation(
+        int $idScreening,
+        Model\Reservation $reservation,
+        array $seats
+    ): bool {
+        $rule = $this->rulesComposite->getForScreening($idScreening);
+
+        return $reservation->make($rule, ...$seats);
+    }
+
+    private function saveReservation(Model\Reservation $reservation): bool
+    {
+        return $this->reservationDatabase->save($reservation);
     }
 }
