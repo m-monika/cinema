@@ -56,8 +56,17 @@ class Seat
         return $this->isAvailable;
     }
 
-    public function reserveSeat(): void
+    /**
+     * @return bool
+     */
+    public function reserveSeat(): bool
     {
-        $this->isAvailable = false;
+        if ($this->isAvailable) {
+            $this->isAvailable = false;
+
+            return true;
+        }
+
+        return false;
     }
 }

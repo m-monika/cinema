@@ -47,11 +47,9 @@ class Reservation
             $row = $requestedSeat->getRow();
             $seatInRow = $requestedSeat->getSeatInRow();
 
-            if (!$this->hallSeats->isSeatAvailable($row, $seatInRow)) {
+            if (!$this->hallSeats->reserveSeat($row, $seatInRow)) {
                 return false;
             }
-
-            $this->hallSeats->reserveSeat($row, $seatInRow);
         }
 
         if ($rule instanceof Rule) {

@@ -65,9 +65,11 @@ class HallSeats
     /**
      * @param int $row
      * @param int $seatInRow
+     *
+     * @return bool
      */
-    public function reserveSeat(int $row, int $seatInRow): void
+    public function reserveSeat(int $row, int $seatInRow): bool
     {
-        ($this->seats[$row][$seatInRow])->reserveSeat();
+        return ($this->seats[$row][$seatInRow])->reserveSeat();
     }
 }
