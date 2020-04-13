@@ -118,9 +118,9 @@ class LeftSeatsOnTheSides implements Rule
         }
 
         for ($seatCount = 2; $seatCount <= $this->seatOnSideToLeave; $seatCount++) {
-            $seatToCheckOnLeft = $seatInRow + $seatCount;
+            $seatToCheckOnRight = $seatInRow + $seatCount;
 
-            if (!$this->hallSeats->isSeatAvailable($sector, $row, $seatToCheckOnLeft)) {
+            if (!$this->hallSeats->isSeatAvailable($sector, $row, $seatToCheckOnRight)) {
                 return false;
             }
         }
