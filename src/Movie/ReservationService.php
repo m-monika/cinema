@@ -6,9 +6,9 @@ namespace Cinema\Movie;
 class ReservationService
 {
     /**
-     * @var Rules\Database
+     * @var Rules\RuleComposite
      */
-    private $rulesDatabase;
+    private $rulesComposite;
 
     /**
      * @var Database\Screening
@@ -17,13 +17,13 @@ class ReservationService
 
     /**
      * @param Database\Screening $reservationDatabase
-     * @param Rules\Database $rulesDatabase
+     * @param Rules\RuleComposite $rulesComposite
      */
     public function __construct(
         Database\Screening $reservationDatabase,
-        Rules\Database $rulesDatabase
+        Rules\RuleComposite $rulesComposite
     ) {
-        $this->rulesDatabase = $rulesDatabase;
+        $this->rulesComposite = $rulesComposite;
         $this->reservationDatabase = $reservationDatabase;
     }
 
@@ -49,7 +49,7 @@ class ReservationService
             );
         }
 
-        $rule = $this->rulesDatabase->getForMovie($idScreening);
+        $rule = $this->rulesComposite->getForScreening($idScreening);
         $result = $reservation->make($rule, ...$seats);
 
         if ($result === false) {

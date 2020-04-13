@@ -15,23 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ReservationTest extends TestCase
 {
-    public function testMakeReservationNoRule(): void
-    {
-        $reservation = new Reservation(
-            1,
-            new HallSeats(
-                new Seat(1, 1, true)
-            )
-        );
-
-        $this->assertTrue(
-            $reservation->make(
-                null,
-                new RequestedSeat(1, 1)
-            )
-        );
-    }
-
     public function testMakeReservationWithRuleCanMakeReservation(): void
     {
         $ruleMock = $this->createMock(Rule::class);
@@ -82,6 +65,7 @@ class ReservationTest extends TestCase
 
     public function testMakeReservationButSeatIsTaken(): void
     {
+        $ruleMock = $this->createMock(Rule::class);
         $reservation = new Reservation(
             1,
             new HallSeats(
@@ -91,7 +75,7 @@ class ReservationTest extends TestCase
 
         $this->assertFalse(
             $reservation->make(
-                null,
+                $ruleMock,
                 new RequestedSeat(1, 1)
             )
         );

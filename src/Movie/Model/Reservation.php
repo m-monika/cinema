@@ -34,13 +34,13 @@ class Reservation
     }
 
     /**
-     * @param Rule|null $rule
+     * @param Rule $rule
      * @param API\RequestedSeat $requestedSeats
      *
      * @return bool
      */
     public function make(
-        ?Rule $rule,
+        Rule $rule,
         API\RequestedSeat ...$requestedSeats
     ): bool {
         foreach ($requestedSeats as $requestedSeat) {
@@ -52,10 +52,6 @@ class Reservation
             }
         }
 
-        if ($rule instanceof Rule) {
-            return $rule->canMakeReservation(...$requestedSeats);
-        }
-
-        return true;
+        return $rule->canMakeReservation(...$requestedSeats);
     }
 }

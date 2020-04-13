@@ -18,25 +18,26 @@ class ReservationServiceTest extends TestCase
 {
     public function setUp(): void
     {
-        $this->rulesDatabase = $this->createMock(Rules\Database::class);
+        $this->rulesComposite = $this->createMock(Rules\RuleComposite::class);
         $this->screeningDatabase = $this->createMock(Screening::class);
         $this->reservation = new ReservationService(
             $this->screeningDatabase,
-            $this->rulesDatabase
+            $this->rulesComposite
         );
     }
 
     public function testMakeReservationSuccess(): void
     {
         $screeningModel = $this->createMock(Model\Reservation::class);
+        $rule = new Rules\Rule\AndRules();
         $this->screeningDatabase
             ->expects($this->once())
             ->method('getById')
             ->willReturn($screeningModel);
-        $this->rulesDatabase
+        $this->rulesComposite
             ->expects($this->once())
-            ->method('getForMovie')
-            ->willReturn(null);
+            ->method('getForScreening')
+            ->willReturn($rule);
         $screeningModel
             ->expects($this->once())
             ->method('make')
@@ -54,14 +55,15 @@ class ReservationServiceTest extends TestCase
     public function testCouldNotSaveToDatabase(): void
     {
         $screeningModel = $this->createMock(Model\Reservation::class);
+        $rule = new Rules\Rule\AndRules();
         $this->screeningDatabase
             ->expects($this->once())
             ->method('getById')
             ->willReturn($screeningModel);
-        $this->rulesDatabase
+        $this->rulesComposite
             ->expects($this->once())
-            ->method('getForMovie')
-            ->willReturn(null);
+            ->method('getForScreening')
+            ->willReturn($rule);
         $screeningModel
             ->expects($this->once())
             ->method('make')
@@ -79,14 +81,15 @@ class ReservationServiceTest extends TestCase
     public function testCouldNotMakeReservation(): void
     {
         $screeningModel = $this->createMock(Model\Reservation::class);
+        $rule = new Rules\Rule\AndRules();
         $this->screeningDatabase
             ->expects($this->once())
             ->method('getById')
             ->willReturn($screeningModel);
-        $this->rulesDatabase
+        $this->rulesComposite
             ->expects($this->once())
-            ->method('getForMovie')
-            ->willReturn(null);
+            ->method('getForScreening')
+            ->willReturn($rule);
         $screeningModel
             ->expects($this->once())
             ->method('make')
