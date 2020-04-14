@@ -44,10 +44,19 @@ class SpaceBetweenRequestedSeats implements Rule
     private function checkGroupedSeats(array $groupedSeats): bool
     {
         foreach ($groupedSeats as $rows) {
-            foreach ($rows as $seatsInRow) {
-                if (!$this->checkSeatsInRow($seatsInRow)) {
-                    return false;
-                }
+            if (!$this->checkRowsInSector($rows)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function checkRowsInSector(array $rows): bool
+    {
+        foreach ($rows as $seatsInRow) {
+            if (!$this->checkSeatsInRow($seatsInRow)) {
+                return false;
             }
         }
 

@@ -30,7 +30,7 @@ class Reservation
 
     /**
      * @param Rule $rule
-     * @param API\RequestedSeat $requestedSeats
+     * @param API\RequestedSeat ...$requestedSeats
      *
      * @return bool
      */

@@ -27,6 +27,7 @@ class RuleComposite
     {
         $allRules = [];
         $ruleForMovie = $this->rulesDatabase->getForMovie($idScreening);
+
         if ($ruleForMovie !== null) {
             $allRules[] = $ruleForMovie;
         }
