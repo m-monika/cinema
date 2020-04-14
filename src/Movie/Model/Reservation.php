@@ -9,11 +9,6 @@ use Cinema\Movie\Rules\Rule;
 class Reservation
 {
     /**
-     * @var int|null
-     */
-    private $id;
-
-    /**
      * @var int
      */
     private $idScreening;
@@ -44,15 +39,20 @@ class Reservation
         API\RequestedSeat ...$requestedSeats
     ): bool {
         foreach ($requestedSeats as $requestedSeat) {
-            $sector = $requestedSeat->getSector();
-            $row = $requestedSeat->getRow();
-            $seatInRow = $requestedSeat->getSeatInRow();
-
-            if (!$this->hallSeats->reserveSeat($sector, $row, $seatInRow)) {
+            if (!$this->reserveSeat($requestedSeat)) {
                 return false;
             }
         }
 
         return $rule->canMakeReservation(...$requestedSeats);
+    }
+
+    private function reserveSeat(API\RequestedSeat $requestedSeat): bool
+    {
+        $sector = $requestedSeat->getSector();
+        $row = $requestedSeat->getRow();
+        $seatInRow = $requestedSeat->getSeatInRow();
+
+        return $this->hallSeats->reserveSeat($sector, $row, $seatInRow);
     }
 }
