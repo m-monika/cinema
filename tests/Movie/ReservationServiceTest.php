@@ -32,7 +32,7 @@ class ReservationServiceTest extends TestCase
         $rule = new Rules\Rule\AndRules();
         $this->screeningDatabase
             ->expects($this->once())
-            ->method('getById')
+            ->method('getReservation')
             ->willReturn($screeningModel);
         $this->rulesComposite
             ->expects($this->once())
@@ -44,7 +44,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(true);
         $this->screeningDatabase
             ->expects($this->once())
-            ->method('save')
+            ->method('saveReservation')
             ->willReturn(true);
         $this->assertInstanceOf(
             Result\Success::class,
@@ -58,7 +58,7 @@ class ReservationServiceTest extends TestCase
         $rule = new Rules\Rule\AndRules();
         $this->screeningDatabase
             ->expects($this->once())
-            ->method('getById')
+            ->method('getReservation')
             ->willReturn($screeningModel);
         $this->rulesComposite
             ->expects($this->once())
@@ -70,7 +70,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(true);
         $this->screeningDatabase
             ->expects($this->once())
-            ->method('save')
+            ->method('saveReservation')
             ->willReturn(false);
         $this->assertInstanceOf(
             Result\Failure::class,
@@ -84,7 +84,7 @@ class ReservationServiceTest extends TestCase
         $rule = new Rules\Rule\AndRules();
         $this->screeningDatabase
             ->expects($this->once())
-            ->method('getById')
+            ->method('getReservation')
             ->willReturn($screeningModel);
         $this->rulesComposite
             ->expects($this->once())
@@ -96,7 +96,7 @@ class ReservationServiceTest extends TestCase
             ->willReturn(false);
         $this->screeningDatabase
             ->expects($this->never())
-            ->method('save');
+            ->method('saveReservation');
         $this->assertInstanceOf(
             Result\Failure::class,
             $this->reservation->make(1, new RequestedSeat(1, 1, 1))
@@ -107,11 +107,11 @@ class ReservationServiceTest extends TestCase
     {
         $this->screeningDatabase
             ->expects($this->once())
-            ->method('getById')
+            ->method('getReservation')
             ->willReturn(null);
         $this->screeningDatabase
             ->expects($this->never())
-            ->method('save');
+            ->method('saveReservation');
         $this->assertInstanceOf(
             Result\Failure::class,
             $this->reservation->make(1, new RequestedSeat(1, 1, 1))
@@ -122,7 +122,7 @@ class ReservationServiceTest extends TestCase
     {
         $this->screeningDatabase
             ->expects($this->never())
-            ->method('getById');
+            ->method('getReservation');
         $this->assertInstanceOf(
             Result\Failure::class,
             $this->reservation->make(1)

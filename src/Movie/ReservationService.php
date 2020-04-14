@@ -13,18 +13,18 @@ class ReservationService
     /**
      * @var Database\Screening
      */
-    private $reservationDatabase;
+    private $screeningDatabase;
 
     /**
-     * @param Database\Screening $reservationDatabase
+     * @param Database\Screening $screeningDatabase
      * @param Rules\RuleComposite $rulesComposite
      */
     public function __construct(
-        Database\Screening $reservationDatabase,
+        Database\Screening $screeningDatabase,
         Rules\RuleComposite $rulesComposite
     ) {
         $this->rulesComposite = $rulesComposite;
-        $this->reservationDatabase = $reservationDatabase;
+        $this->screeningDatabase = $screeningDatabase;
     }
 
     /**
@@ -41,7 +41,7 @@ class ReservationService
             );
         }
 
-        $reservation = $this->reservationDatabase->getById(
+        $reservation = $this->screeningDatabase->getReservation(
             $idScreening,
             ...$seats
         );
@@ -82,6 +82,6 @@ class ReservationService
 
     private function saveReservation(Model\Reservation $reservation): bool
     {
-        return $this->reservationDatabase->save($reservation);
+        return $this->screeningDatabase->saveReservation($reservation);
     }
 }

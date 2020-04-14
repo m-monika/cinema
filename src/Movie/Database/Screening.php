@@ -14,7 +14,7 @@ interface Screening
      *
      * @return Model\Reservation|null
      */
-    public function getById(
+    public function getReservation(
         int $idScreening,
         RequestedSeat ...$seats
     ): ?Model\Reservation;
@@ -24,5 +24,12 @@ interface Screening
      *
      * @return bool
      */
-    public function save(Model\Reservation $reservation): bool;
+    public function saveReservation(Model\Reservation $reservation): bool;
+
+    /**
+     * @param int $idScreening
+     *
+     * @return Model\HallSeats|null
+     */
+    public function getAllHallSeats(int $idScreening): ?Model\HallSeats;
 }
