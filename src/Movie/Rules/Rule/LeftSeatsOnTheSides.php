@@ -33,7 +33,7 @@ class LeftSeatsOnTheSides implements Rule
 
     public function canMakeReservation(RequestedSeat ...$requestedSeats): bool
     {
-        $requestedSeats = $this->groupSeatsByRow($requestedSeats);
+        $requestedSeats = $this->groupSeats($requestedSeats);
 
         foreach ($requestedSeats as $sector => $rows) {
             if (!$this->checkRowsInSector($sector, $rows)) {
@@ -44,7 +44,7 @@ class LeftSeatsOnTheSides implements Rule
         return true;
     }
 
-    private function groupSeatsByRow(array $requestedSeats): array
+    private function groupSeats(array $requestedSeats): array
     {
         $result = [];
 

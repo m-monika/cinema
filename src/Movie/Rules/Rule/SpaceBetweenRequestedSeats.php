@@ -23,12 +23,12 @@ class SpaceBetweenRequestedSeats implements Rule
 
     public function canMakeReservation(RequestedSeat ...$requestedSeats): bool
     {
-        $groupedSeats = $this->groupSeatsBySector($requestedSeats);
+        $groupedSeats = $this->groupSeats($requestedSeats);
 
         return $this->checkGroupedSeats($groupedSeats);
     }
 
-    private function groupSeatsBySector(array $requestedSeats): array
+    private function groupSeats(array $requestedSeats): array
     {
         $groupedSeats = [];
 
